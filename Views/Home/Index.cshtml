@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@model  KP.Models.MdlSchedule
+<style type="text/css">
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+        }
+
+        .tg .tg-yw4l {
+            vertical-align: top;
+        }
+</style>
+
+@for (int i = 0; i < Model.schedule.Days.Count; i++)
+{
+    <table class="tg">
+        <tr>
+            <th class="tg-yw4l" rowspan=@(Model.schedule.Days[i].Subjects.Count+1)>@i</th>
+            @for (int j = 0; j < Model.schedule.Days[i].Subjects.Count; j++)
+            {
+            <tr>
+                <th class="tg-yw4l">@j</th>
+                <th class="tg-yw4l">@Html.DisplayFor(Model => Model.schedule.Days[i].Subjects[j].Name)</th>
+            </tr>
+            }
+            </tr>
+        </table>
+}
+       

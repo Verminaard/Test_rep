@@ -50,20 +50,22 @@ namespace KP.Models
             return new Schedule(num, status, days);
         }
 
-        public List<Mark> GetMarksById(int id)
+        public List<Mark> GetMarksByIdAndDate(int id, DateTime FirstDate, DateTime SecondDate)
         {
             List<Mark> Mark = new List<Mark>();
             try
             {
                 Connect();
-                MySqlCommand command = new MySqlCommand("SELECT mark, date, name FROM Mark, Subject where mark.id_user = @id and mark.id_subject = subject.id_subject;", conn);
+                MySqlCommand command = new MySqlCommand("SELECT mark, date, name FROM Mark, Subject where mark.id_user = @id and mark.id_subject = subject.id_subject and date between @date1 and @date2;", conn);
                 command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@date1", FirstDate.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@date2", SecondDate.ToString("yyyy-MM-dd"));
                 DataTable dataTable = new DataTable();
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
                 da.Fill(dataTable);
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
-                    Subject sub = new Subject(dataTable.Rows[i][1].ToString());
+                    Subject sub = new Subject(dataTable.Rows[i][2].ToString());
                     Mark.Add(new Mark(Int32.Parse(dataTable.Rows[i][0].ToString()), dataTable.Rows[i][1].ToString(), sub));
                 }
             }
@@ -78,20 +80,22 @@ namespace KP.Models
             return Mark;
             }
 
-        public List<Homework> GetHomeworkById(int id)
+        public List<Homework> GetHomeworkByIdAndDate(int id, DateTime FirstDate, DateTime SecondDate)
         {
             List<Homework> Homework = new List<Homework>();
             try
             {
                 Connect();
-                MySqlCommand command = new MySqlCommand("SELECT homework, date, name FROM Homework, Subject where homework.id_user = @id and homework.id_subject = subject.id_subject;", conn);
+                MySqlCommand command = new MySqlCommand("SELECT homework, date, name FROM Homework, Subject where homework.id_user = @id and homework.id_subject = subject.id_subject and date between @date1 and @date2", conn);
                 command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@date1", FirstDate.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@date2", SecondDate.ToString("yyyy-MM-dd"));
                 DataTable dataTable = new DataTable();
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
                 da.Fill(dataTable);
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
-                    Subject sub = new Subject(dataTable.Rows[i][1].ToString());
+                    Subject sub = new Subject(dataTable.Rows[i][2].ToString());
                     Homework.Add(new Homework(dataTable.Rows[i][0].ToString(), dataTable.Rows[i][1].ToString(), sub));
                 }
             }

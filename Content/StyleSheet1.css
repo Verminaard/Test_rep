@@ -1,0 +1,23 @@
+﻿body {
+}
+
+table.table{
+	border: 1px rgb(27, 27, 27) solid;
+	width: 534px;
+	height: 210px;
+	border-spacing: 2px;
+}
+table.table th{
+	border: 1px rgb(27, 27, 27) solid;
+	background-color: rgba(0, 146, 243, 0.4);
+	height: 30px;
+}
+table.table td{
+	border: 1px rgb(27, 27, 27) solid;
+	height: 40px;
+}
+table.table tfoot td{
+	border: 1px rgb(27, 27, 27) solid;
+	background-color: rgba(0, 146, 243, 0.2);
+	height: 30px;
+}

@@ -1,52 +1,46 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@model  KP.Models.MdlSchedule
-<style type="text/css">
-    .tg {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
+@model  IEnumerable < KP.Models.MdlSchedule >
+<head>
+<meta name="viewport" content="width=device-width" />
+<title>Index</title>
+    <link rel="stylesheet" href="~/Content/StyleSheet1.css">
+</head>
 
-        .tg td {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            padding: 10px 5px;
-            border-style: solid;
-            border-width: 1px;
-            overflow: hidden;
-            word-break: normal;
-        }
-
-        .tg th {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: normal;
-            padding: 10px 5px;
-            border-style: solid;
-            border-width: 1px;
-            overflow: hidden;
-            word-break: normal;
-        }
-
-        .tg .tg-yw4l {
-            vertical-align: top;
-        }
-</style>
-
-@for (int i = 0; i < Model.schedule.Days.Count; i++)
-{
-    <table class="tg">
-        <tr>
-            <th class="tg-yw4l" rowspan=@(Model.schedule.Days[i].Subjects.Count+1)>@i</th>
-            @for (int j = 0; j < Model.schedule.Days[i].Subjects.Count; j++)
-            {
+<body>
+    <table class="table">
+        <thead>
             <tr>
-                <th class="tg-yw4l">@j</th>
-                <th class="tg-yw4l">@Html.DisplayFor(Model => Model.schedule.Days[i].Subjects[j].Name)</th>
+                <th>Дата</th>
+                <th>Номер</th>
+                <th>Предмет</th>
+                <th>Домашнее задание</th>
+                <th>Оценка</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sub_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.homework)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.mark)
+                    </td>
+                </tr>
             }
-            </tr>
-        </table>
-}
-       
+        </tbody>
+    </table>
+    </body>
